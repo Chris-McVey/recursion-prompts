@@ -46,9 +46,7 @@ var arraySum = function(array) {
 
 // 4. Check if a number is even.
 var isEven = function(n) {
-  
   var num = Math.abs(n);
-
   if (num === 1) {
     return false;
   }
@@ -62,38 +60,43 @@ var isEven = function(n) {
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
-  //declare counter
- 
-
-  //Base case
-  //If n is zero
   if (n === 0) {
-    //return 0
     return 0;
   }
-    
-
-  //Recursive case
-
-  //if n is negative
   if (n < 0) {
-    //return counter plus sumBelow(n+1)
     return (n + 1) + sumBelow(n + 1);
   }
-    
-
-  //if positive
   if (n > 0) {
-    //return counter plus sumBelow(n-1)
     return (n - 1) + sumBelow(n - 1);
   }
-    
-
 };
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+  var result = [];
+  if (Math.abs((x - y)) < 2) {
+    return result;
+  }
+if (x < y) {
+  if ((x + 1) === (y - 1)) {
+    result.push(x + 1);
+    return result;
+  } else {
+    result.push(x + 1);
+    result = result.concat(range((x + 1), y));
+  }
+}
+if (x > y) {
+  if ((x - 1) === (y + 1)) {
+    result.push(x - 1);
+    return result;
+  } else {
+    result.push(x - 1);
+    result = result.concat(range((x - 1), y));
+  }  
+}
+  return result; 
 };
 
 // 7. Compute the exponent of a number.
@@ -102,6 +105,14 @@ var range = function(x, y) {
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
+  if (exp === 0) {
+    return 1;
+  }
+  if (exp < 0) {
+  return 1 / exponent(base, (-exp));
+  } else {
+  return base * exponent(base, (exp - 1));
+  }
 };
 
 // 8. Determine if a number is a power of two.
@@ -109,14 +120,35 @@ var exponent = function(base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+ 
+
 };
 
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
+  var reversedString = '';
+  if (string.length === 1) {
+    return reversedString += string[0];
+  }
+  reversedString += string[string.length - 1];
+  var newString = string.slice(0, -1);
+  return reversedString += reverse(newString);
 };
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
+  string = string.split(' ').join('').toLowerCase();
+  if (string.length <= 1) {
+    return true;
+  }
+  var firstLetter = string[0];
+  var lastLetter = string[string.length - 1];
+  if (firstLetter === lastLetter) {
+    var newString = string.slice(1, -1);
+    return palindrome(newString)
+  } else {
+    return false;
+  }
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
